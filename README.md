@@ -1,26 +1,23 @@
-# 🔢 C语言进制转换与编码演示工具 (Binary Converter)
+main() ── 菜单循环（fgets + atoi）
+│
+├── 整数模块
+│   ├── intBinToDec()   二进制 → 十进制（三种解读模式）
+│   ├── intDecToBin()   十进制 → 二进制
+│   ├── printIntRep()   统一输出 原码/反码/补码
+│   └── chooseWidth()   位宽选择（8/16/32，循环重试）
+│
+├── 浮点模块（IEEE 754）
+│   ├── floatDecToBin() 十进制 → 位模式拆解
+│   ├── floatBinToDec() 位模式 → 十进制还原
+│   ├── printFloatFields() S/E/M 字段分析与数值解读
+│   └── choosePrecision() 单精度/双精度选择
+│
+└── 通用工具层（两个模块共用）
+    ├── readLine()      fgets 封装，剔除 \r\n 
+    ├── stripSpaces()   去空白（支持 "1111 1011" 输入）
+    ├── parseBinary()   二进制串 → uint64_t（移位实现）
+    ├── toBinaryString() uint64_t → 定长二进制串
+    ├── printGrouped()  每 4 位分组打印
+    └── readLongLong() / readDouble()  带完整校验的数值读取
 
-## ✨ 核心功能
 
-*   **双向转换**：支持 二进制 ↔ 十进制 的互相转换。
-*   **多模式解析**：
-    *   **正数模式**：标准无符号二进制转十进制。
-    *   **负数(绝对值)模式**：输入绝对值，自动推导并展示对应的原码、反码和补码。
-    *   **补码解读模式**：直接输入一串二进制（如 `11111111`），程序将其视为补码并解析出真实的有符号十进制数值（如 `-1`）。
-*   **灵活位宽**：支持 **8位**、**16位**、**32位** 有符号整数范围切换。
-*   **边界处理**：完美处理特殊边界值（例如 8位下的 `-128`），并给出准确的数学解释。
-*   **可视化输出**：二进制结果自动按每 4 位分组（如 `1010 1100`），便于阅读。
-
-## 🚀 快速开始
-
-### 环境要求
-*   C 语言编译器 (GCC, Clang, MSVC 等)
-*   终端 / 命令行 (Windows PowerShell/CMD, macOS Terminal, Linux Shell)
-
-### 编译与运行
-
-**1. 编译代码**
-在终端中进入项目目录，运行以下命令（假设源文件名为 `converter.c`）：
-
-```bash
-gcc converter.c -o converter
